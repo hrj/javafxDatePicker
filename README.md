@@ -7,7 +7,7 @@ This is based on code originally by Christian Schudt. See his blog post [here](h
 It was slightly modified by Marco Jakob as described [here](http://edu.makery.ch/blog/2013/01/07/javafx-date-picker/)
 
 # Downloads
-Get the latest [release hosted on GitHub](/releases/).
+Get the latest [release hosted on GitHub](https://github.com/hrj/javafxDatePicker/releases)
 
 # License
 Christian said "Use and modify it as you like". To be more clear I am releasing this under the [CC0](http://creativecommons.org/publicdomain/zero/1.0/) license.
