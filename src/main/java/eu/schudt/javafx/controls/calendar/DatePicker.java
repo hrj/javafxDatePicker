@@ -177,13 +177,6 @@ public class DatePicker extends HBox {
                 invalid.set(false);
             }
         });
-        
-        selectedDateProperty().addListener(new ChangeListener<Date>() {
-			@Override
-			public void changed(ObservableValue<? extends Date> arg0, Date oldValue, Date newValue) {
-				calendarView.selectedDate.setValue(newValue);
-			}
-		});
 
         localeProperty().addListener(new InvalidationListener() {
             @Override
@@ -418,12 +411,6 @@ public class DatePicker extends HBox {
             popup.setHideOnEscape(true);
             popup.setAutoFix(true);
             popup.getContent().add(calendarView);
-        }
-        
-        if (calendarView.selectedDate.getValue() != null) {
-        	calendarView.calendarDate.set(calendarView.selectedDate.getValue());
-        } else {
-        	calendarView.calendarDate.set(new Date());
         }
 
         Bounds calendarBounds = calendarView.getBoundsInLocal();
