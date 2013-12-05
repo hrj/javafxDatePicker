@@ -27,6 +27,7 @@ final class MonthView extends DatePane {
     private static final String CSS_CALENDAR_DAY_CURRENT_MONTH = "calendar-cell-current-month";
     private static final String CSS_CALENDAR_DAY_OTHER_MONTH = "calendar-cell-other-month";
     private static final String CSS_CALENDAR_TODAY = "calendar-cell-today";
+    private static final String CSS_CALENDAR_SELECTED = "calendar-cell-selected";
     private static final String CSS_CALENDAR_WEEKDAYS = "calendar-weekdays";
     private static final String CSS_CALENDAR_WEEK_NUMBER = "calendar-week-number";
 
@@ -80,6 +81,20 @@ final class MonthView extends DatePane {
                 updateContent();
             }
         });
+        
+        calendarView.selectedDateProperty().addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable observable) {
+				updateContent();				
+			}
+		});
+        
+        calendarView.calendarDate.addListener(new InvalidationListener() {
+			@Override
+			public void invalidated(Observable arg0) {
+				updateContent();
+			}
+		});
     }
 
     /**
@@ -186,6 +201,14 @@ final class MonthView extends DatePane {
         int todayDay = calendar.get(Calendar.DATE);
         int todayMonth = calendar.get(Calendar.MONTH);
         int todayYear = calendar.get(Calendar.YEAR);
+        
+        if (calendarView.selectedDate.get() != null) {
+        	calendar.setTime(calendarView.selectedDate.get());
+        }
+        int selectedDay = calendar.get(Calendar.DATE);
+        int selectedMonth = calendar.get(Calendar.MONTH);
+        int selectedYear = calendar.get(Calendar.YEAR);
+        
         calendar.setTime(tmp);
 
         // Set the calendar to the end of the previous month.
@@ -222,6 +245,7 @@ final class MonthView extends DatePane {
                 control.getStyleClass().remove(CSS_CALENDAR_DAY_CURRENT_MONTH);
                 control.getStyleClass().remove(CSS_CALENDAR_DAY_OTHER_MONTH);
                 control.getStyleClass().remove(CSS_CALENDAR_TODAY);
+                control.getStyleClass().remove(CSS_CALENDAR_SELECTED);
 
                 if (calendar.get(Calendar.MONTH) == month) {
                     control.getStyleClass().add(CSS_CALENDAR_DAY_CURRENT_MONTH);
@@ -231,6 +255,9 @@ final class MonthView extends DatePane {
 
                 if (calendar.get(Calendar.YEAR) == todayYear && calendar.get(Calendar.MONTH) == todayMonth && calendar.get(Calendar.DATE) == todayDay) {
                     control.getStyleClass().add(CSS_CALENDAR_TODAY);
+                }
+                if (calendar.get(Calendar.YEAR) == selectedYear && calendar.get(Calendar.MONTH) == selectedMonth && calendar.get(Calendar.DATE) == selectedDay) {
+                    control.getStyleClass().add(CSS_CALENDAR_SELECTED);
                 }
 
 
